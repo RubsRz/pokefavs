@@ -1,0 +1,37 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item" (click)="currentTab='tab-pokemons'" (click)="screen=false">
+        <a class="nav-link" id="tabp" [ngClass]="{'active': currentTab=='tab-pokemons'}">Pokemons</a>
+    </li>
+    <li class="nav-item" (click)="currentTab='tab-favoritos'" (click)="screen=true">
+        <a class="nav-link" id="tabf" [ngClass]="{'active': currentTab=='tab-favoritos'}">Favoritos</a>
+    </li>
+</ul>
+
+<div *ngIf="screen == false" class="row m-5">
+
+    <!-- ALERTAS -->
+    <div class="alert alert-success" id="alertaAgregado">Agregado</div>
+    <div class="alert alert-warning" id="alertaExistente">Este Pokemon Ya Existe En Tus Favoritos</div>
+
+    <div class="card col-sm-6 col-lg-2" *ngFor="let pokemons of pokemons; let i = index">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{i+1}}.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Pokemon</p>
+            <button class="btn btn-primary w-100" (click)="guardar(i+1)">Agregar a favoritos</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="screen == true" class="row m-5">
+
+    <!-- ALERTAS -->
+    <div class="alert alert-danger" id="alertaEliminado">Eliminado de tus favoritos</div>
+
+    <div class="card col-sm-6 col-lg-2" *ngFor="let favorito of favoritos; let i = index">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{favorito}}.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Pokemon</p>
+            <button class="btn btn-danger w-100" (click)="eliminar(i)">Eliminar de favorito</button>
+        </div>
+    </div>
+</div>
