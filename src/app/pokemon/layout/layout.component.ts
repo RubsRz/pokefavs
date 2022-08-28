@@ -11,20 +11,27 @@ type Tabs = 'tab-pokemons' | 'tab-favoritos' | ''
 export class LayoutComponent{
 
   public currentTab:Tabs;
-  public pokemons:any[] = new Array(50);
+  public pokemons:any[] = new Array(898);
   public favoritos:any[];
   public screen:boolean = false;
+  public buscar: number | undefined;
 
   constructor() {
     this.currentTab ="tab-pokemons";
-    this.favoritos = [];
+    // this.favoritos = [];
 
-    // if(this.currentTab == "tab-pokemons"){
-    //   document.getElementById("tabp")?.setAttribute("color", "red");
-    // }
-    // else{
-    //   document.getElementById("tabf")?.setAttribute("color", "red");
-    // }
+
+    if (localStorage.getItem('favoritos') === null) {
+      this.favoritos = [];
+      // this.push(task);
+      localStorage.setItem('favoritos', JSON.stringify(this.favoritos));
+  } else {
+      this.favoritos = JSON.parse(localStorage.getItem('favoritos')!);
+      // this.favoritos.push();
+      // localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+    
+    // this.favoritos = JSON.parse(localStorage.getItem('favoritos')!);
 
   }
 
@@ -37,12 +44,17 @@ export class LayoutComponent{
     }else{
       this.favoritos.push(pos);
       this.alertaAgregado();
+
+
+      localStorage.setItem('favoritos', JSON.stringify(this.favoritos));
+
     }
   }
 
   eliminar(pos:any){
     this.favoritos.splice(pos,1)
     this.alertaEliminado();
+    localStorage.setItem('favoritos', JSON.stringify(this.favoritos));
   }
 
   alertaAgregado(){
