@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as $ from 'jquery';
 
 type Tabs = 'tab-pokemons' | 'tab-favoritos' | ''
@@ -25,14 +25,10 @@ export class LayoutComponent{
       this.favoritos = [];
       // this.push(task);
       localStorage.setItem('favoritos', JSON.stringify(this.favoritos));
-  } else {
+    } else {
       this.favoritos = JSON.parse(localStorage.getItem('favoritos')!);
-      // this.favoritos.push();
-      // localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
-    
-    // this.favoritos = JSON.parse(localStorage.getItem('favoritos')!);
-
+    }
+  
   }
 
   guardar(pos:any){
@@ -78,6 +74,10 @@ export class LayoutComponent{
     }, 1000);
   }
 
-
+  changebuscar(){
+    if (this.buscar != undefined && this.buscar > 898) {
+      this.buscar = 898;
+    }
+  }
 
 }
